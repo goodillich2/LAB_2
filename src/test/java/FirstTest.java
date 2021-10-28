@@ -63,6 +63,6 @@ public class FirstTest {
 
     @Test
     public void TestShouldAllowAllowMultipleDelimitersWithLengthLongerThanOneChar(){
-        Assert.assertEquals(6, p.Add(  "//[**][%%]\n1**2%%3"));
+        Assert.assertEquals(6, p.Add(  "//[%][%%]\n1%2%%3"));
     }
 }
