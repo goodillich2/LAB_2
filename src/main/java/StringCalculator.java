@@ -7,7 +7,7 @@ public class StringCalculator {
 
     public static void main(String[] args) {
         StringCalculator p = new StringCalculator();
-       System.out.println(p.Add("//[&][%%][***]\n999&2%%3***7"));
+       System.out.println(p.Add("//[&][%%][***][^^]\n9&2%%3***7^^5000"));
         System.out.println(p.Add("//[&][%%]\n2&3%%7"));
 
     }
@@ -38,6 +38,7 @@ public class StringCalculator {
             String delimiter = "";
             String delimiter2 = "";
             String delimiter3 = "";
+            String delimiter4 = "";
             if(numbers.contains("//")){
                 if(!multipleDelimiter(numbers)) {
                     char[] t = numbers.toCharArray();
@@ -71,14 +72,19 @@ public class StringCalculator {
                             if ( t1[i]!='[' && t1[i]!=']' && sum1 == 2){
                                 delimiter3+=t1[i];
                             }
+                            if ( t1[i]!='[' && t1[i]!=']' && sum1 == 3){
+                                delimiter4+=t1[i];
+                            }
 
                         }
                         else break;
                     }
                     if(delimiter3.equals(""))
                         numbers = numbers.substring(7 + delimiter.length()+delimiter2.length());
-                    else
+                    else if(delimiter4.equals(""))
                         numbers = numbers.substring(9 + delimiter.length()+delimiter3.length()+delimiter2.length());
+                    else
+                        numbers = numbers.substring(11 + delimiter.length()+delimiter3.length()+delimiter2.length()+delimiter4.length());
                 }
             }
             else  delimiter = ",";
@@ -103,10 +109,21 @@ public class StringCalculator {
                 }
                 return sum;
             }
-            else{
+            else if (delimiter4.equals("")){
                 Formatter f1 = new Formatter();
                 f1.format("[%s%s%s] ?", delimiter, delimiter2, delimiter3);
                 String[] str1 = numbers.split(String.valueOf(f1));
+                int sum = 0;
+                for (String number : str1) {
+                    if(isNumeric(number)) sum += ignore_number_bigger_than_1000(Integer.parseInt(number));
+                    else continue;
+                }
+                return sum;
+            }
+            else {
+                Formatter f2 = new Formatter();
+                f2.format("[%s%s%s%s] ?", delimiter, delimiter2, delimiter3,delimiter4);
+                String[] str1 = numbers.split(String.valueOf(f2));
                 int sum = 0;
                 for (String number : str1) {
                     if(isNumeric(number)) sum += ignore_number_bigger_than_1000(Integer.parseInt(number));
